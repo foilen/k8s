@@ -6,6 +6,10 @@ set -e
 RUN_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$RUN_PATH"
 
+# K8S project
+git status
+
+# All clusters
 cd "$RUN_PATH/clusters"
 
 for CLUSTER_NAME in $(ls); do
