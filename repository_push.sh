@@ -16,5 +16,12 @@ for CLUSTER_NAME in $(ls); do
     echo
     echo "# Cluster $CLUSTER_NAME"
     cd "$RUN_PATH/clusters/$CLUSTER_NAME"
-    git push
+    
+    # Check if a remote is set up
+    if git remote | grep -q .; then
+        git push
+    else
+        echo "No remote configured. Skipping push."
+    fi
 done
+
