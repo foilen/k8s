@@ -2,7 +2,7 @@
 
 To use NGINX for ingress.
 
-For k3s, it is using the default flavor.
+For k3s, it is using the cloud flavor.
 
 # Install
 
@@ -15,7 +15,7 @@ CLUSTER_NAME=my-cluster
 
 ./use.sh $CLUSTER_NAME
 
-VERSION=1.12.1
+VERSION=1.12.2
 wget -O deployment/system/ingress-nginx.yaml https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v$VERSION/deploy/static/provider/cloud/deploy.yaml
 
 k8s_apply_and_add.sh deployment/system/ingress-nginx.yaml
