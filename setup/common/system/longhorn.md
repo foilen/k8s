@@ -9,12 +9,17 @@ Limitations:
 
 # Install
 
+Check the latest version:
+- Go on https://github.com/longhorn/longhorn/tags
+- Check the latest tags without "rc" or "dev" in them
+
 ```
 CLUSTER_NAME=my-cluster
 
 ./use.sh $CLUSTER_NAME
 
-wget -O deployment/system/longhorn.yaml https://raw.githubusercontent.com/longhorn/longhorn/v1.7.1/deploy/longhorn.yaml
+VERSION=1.8.1
+wget -O deployment/system/longhorn.yaml https://raw.githubusercontent.com/longhorn/longhorn/v$VERSION/deploy/longhorn.yaml
 
 k8s_apply_and_add.sh deployment/system/longhorn.yaml
 ```
@@ -27,4 +32,6 @@ kubectl port-forward -n longhorn-system svc/longhorn-frontend 11111:80
 
 Then open your browser at http://localhost:11111
 
-# TODO Update version
+# Update version
+
+Just do like in the install section. That will update the yaml file and apply it.
