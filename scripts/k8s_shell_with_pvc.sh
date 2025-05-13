@@ -42,6 +42,7 @@ metadata:
   namespace: $NAMESPACE
   name: $POD_NAME
 spec:
+  restartPolicy: Never
   containers:
     - name: ubuntu
       image: ubuntu:24.04
@@ -63,6 +64,7 @@ metadata:
   namespace: $NAMESPACE
   name: $POD_NAME
 spec:
+  restartPolicy: Never
   nodeSelector:
     kubernetes.io/hostname: $NODE_NAME
   containers:

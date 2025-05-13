@@ -19,6 +19,7 @@ metadata:
   name: ubuntu-sleep
   namespace: temp-shell
 spec:
+  restartPolicy: Never
   containers:
     - name: ubuntu
       image: ubuntu:24.04

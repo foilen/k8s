@@ -63,7 +63,7 @@ metadata:
   namespace: $NAMESPACE
   name: $POD_NAME
 spec:
-  restartPolicy: Always
+  restartPolicy: Never
   containers:
   - name: ssh
     image: foilen/fdi-openssh:latest
@@ -92,7 +92,7 @@ metadata:
   namespace: $NAMESPACE
   name: $POD_NAME
 spec:
-  restartPolicy: Always
+  restartPolicy: Never
   nodeSelector:
     kubernetes.io/hostname: $NODE_NAME
   containers:
