@@ -33,7 +33,29 @@ fi
 
 # Create a pod
 echo "Creating a pod..."
-kubectl apply -f - <<EOF
+if [ -z "$NODE_NAME" ]; then
+  kubectl apply -f - <<EOF
+# Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: $NAMESPACE
+  name: $POD_NAME
+spec:
+  containers:
+    - name: ubuntu
+      image: ubuntu:24.04
+      command: ["sleep", "3600"]
+      volumeMounts:
+      - name: data
+        mountPath: /data
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: $PVC_NAME
+EOF
+else
+  kubectl apply -f - <<EOF
 # Pod
 apiVersion: v1
 kind: Pod
@@ -55,6 +77,7 @@ spec:
     persistentVolumeClaim:
       claimName: $PVC_NAME
 EOF
+fi
 
 # Wait for the pod to be running
 echo "Waiting for the pod to be running..."

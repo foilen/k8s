@@ -55,7 +55,37 @@ else
 fi
 
 # Create the Pod object
-cat <<EOF | kubectl apply -f -
+if [ -z "$NODE_NAME" ]; then
+  cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: $NAMESPACE
+  name: $POD_NAME
+spec:
+  restartPolicy: Always
+  containers:
+  - name: ssh
+    image: foilen/fdi-openssh:latest
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 22
+      name: ssh
+    volumeMounts:
+    - name: ssh
+      mountPath: /config
+    - name: data
+      mountPath: /data
+  volumes:
+  - name: ssh
+    configMap:
+      name: $CONFIG_MAP_NAME
+  - name: data
+    persistentVolumeClaim:
+      claimName: $PVC_NAME
+EOF
+else
+  cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -85,6 +115,7 @@ spec:
     persistentVolumeClaim:
       claimName: $PVC_NAME
 EOF
+fi
 
 # Wait for the pod to be running
 while [ "$(kubectl get pod $POD_NAME -n $NAMESPACE -o jsonpath='{.status.phase}')" != "Running" ]; do
