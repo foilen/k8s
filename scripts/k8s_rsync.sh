@@ -67,7 +67,7 @@ spec:
   containers:
   - name: ssh
     image: foilen/fdi-openssh:latest
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     ports:
     - containerPort: 22
       name: ssh
@@ -98,7 +98,7 @@ spec:
   containers:
   - name: ssh
     image: foilen/fdi-openssh:latest
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     ports:
     - containerPort: 22
       name: ssh
