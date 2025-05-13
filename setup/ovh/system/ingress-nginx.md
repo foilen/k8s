@@ -22,42 +22,31 @@ VERSION=1.12.2
 wget -O deployment/system/ingress-nginx.yaml https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v$VERSION/deploy/static/provider/baremetal/deploy.yaml
 
 k8s_apply_and_add.sh deployment/system/ingress-nginx.yaml
+```
 
-# To add the load-balancer
-cat > deployment/system/ingress-loadbalancer.yaml <<EOF
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.2
-  name: ingress-nginx-controller-loadbalancer
-  namespace: ingress-nginx
+To add the load-balancer that forwards the client's IP to the NGINX controller, edit deployment/system/ingress-nginx.yaml and:
+- In the `ConfigMap`, set the `data`:
+```
+data:
+  use-proxy-protocol: "true"
+  real-ip-header: "proxy_protocol"
+  proxy-real-ip-cidr: "10.1.0.0/16"
+```
+- In the `Service` named `ingress-nginx-controller`, set the `annotations`:
+```
+  annotations:
+    loadbalancer.openstack.org/proxy-protocol : "v2"
+```
+- In the `Service` named `ingress-nginx-controller`, add to the `spec`:
+```
 spec:
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-    - appProtocol: http
-      name: http
-      port: 80
-      protocol: TCP
-      targetPort: http
-    - appProtocol: https
-      name: https
-      port: 443
-      protocol: TCP
-      targetPort: https
-  selector:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-  type: LoadBalancer
-EOF
-k8s_apply_and_add.sh deployment/system/ingress-loadbalancer.yaml
+  externalTrafficPolicy: Local
+```
+- In the `Service` named `ingress-nginx-controller`, change the `type` from `NodePort` to `LoadBalancer`
+
+Then execute:
+```
+k8s_apply_and_add.sh deployment/system/ingress-nginx.yaml
 ```
 
 # Update version
