@@ -14,9 +14,6 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-# Go in the directory where the script is located
-cd "$(dirname "$0")"
-
 export PATH=$PATH:$(pwd)/scripts
 
 CLUSTER_NAME=$1
