@@ -2,3 +2,4 @@ clusters/
 _*
 
 .idea
+/.claude/settings.local.json
