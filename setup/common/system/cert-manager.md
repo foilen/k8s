@@ -17,8 +17,8 @@ CLUSTER_NAME=my-cluster
 
 ./use.sh $CLUSTER_NAME
 
-VERSION=1.17.2
-wget -O deployment/system/cert-manager.yaml https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
+VERSION=v1.19.1
+wget -O deployment/system/cert-manager.yaml https://github.com/cert-manager/cert-manager/releases/download/$VERSION/cert-manager.yaml
 
 k8s_apply_and_add.sh deployment/system/cert-manager.yaml
 ```
