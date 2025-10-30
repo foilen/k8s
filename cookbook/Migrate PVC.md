@@ -59,7 +59,7 @@ The initial sync will copy most of the data while the application continues runn
 
 ### 3. Stop Applications Using the Current PVC
 
-Scale down all deployments/statefulsets that are currently using the old PVC:
+Scale down all deployments/statefulsets that are currently using the old PVC directly (and maybe all applications using those direct applications like in the case of a database to be on the safer side):
 
 ```bash
 kubectl scale deployment/my-app -n my-namespace --replicas=0
