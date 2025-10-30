@@ -10,3 +10,11 @@ For those alerts, update the yaml files by putting new limits. Round to the 10MB
 Alerts:
 
 ```
+
+# Lower PVC size
+
+```
+Take the steps in `cookbook/Migrate PVC.md` and lower the size of the `XXXXX` PVC to `XX GB`.
+Use the new name `XXXX` for the migrated PVC.
+Execute all the steps and ask for confirmation before applying any changes to the cluster.
+```
