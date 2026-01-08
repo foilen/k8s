@@ -3,6 +3,10 @@
 kubectl get all -o wide --all-namespaces | tee _get_all.txt
 
 echo | tee -a _get_all.txt
+echo '== StatefulSet ==' | tee -a _get_all.txt
+kubectl get statefulset --all-namespaces | tee -a _get_all.txt
+
+echo | tee -a _get_all.txt
 echo '== ConfigMap ==' | tee -a _get_all.txt
 kubectl get configmap --all-namespaces | tee -a _get_all.txt
 
