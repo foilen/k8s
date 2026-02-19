@@ -17,7 +17,7 @@ CLUSTER_NAME=my-cluster
 
 ./use.sh $CLUSTER_NAME
 
-VERSION=1.12.2
+VERSION=1.14.3
 wget -O deployment/system/ingress-nginx.yaml https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v$VERSION/deploy/static/provider/do/deploy.yaml
 
 ```
